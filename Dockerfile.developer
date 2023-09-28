@@ -1,0 +1,8 @@
+FROM oven/bun:latest AS base
+
+FROM base as build
+COPY ./ /vuejsbun
+WORKDIR /vuejsbun
+RUN bun install && sed -i 's/"dev": "vite",/"dev": "bunx --bun vite",/' package.json
+
+CMD [ "bun run dev" ]
